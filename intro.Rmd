@@ -1,0 +1,117 @@
+---
+title: "Introducción"
+author: "Grupo de Investigación *Suma Yuyai* - Fundación Ridcharí Indígena"
+date: "2020"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 3
+    theme: cerulean
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r script_all, include=FALSE}
+source("scripts/all_df.R", local = knitr::knit_global())
+```
+
+El año 2017 marcó un hito en la historia colombiana. El acuerdo de paz de finales de 2016 abonó el terreno para una etapa de transición. Durante 2017 el número anual de víctimas cayó a niveles de finales de 1960 y comienzos de 1970. Es decir, tuvieron que pasar 50 años para un desescalamiento ostensible de las hostilidades causantes de millones de víctimas a lo largo y ancho del país. Décadas, años, meses, semanas, tiempos que se traducen en 20 mil días de conflicto armado (1962-2016).
+
+Vale decir que el periodo cubierto por los registros del Centro Nacional de Memoria Histórica abarca casi 22 mil días, entre enero de 1958 y mayo de 2018. Sin embargo, todos esos días no tuvieron la misma intensidad en relación con el saldo de víctimas de las acciones de guerra. Estos saldos diarios comienzan a pasar del centenar de víctimas a partir de la década de 1980 (Fig. 1).
+
+```{r t_days, echo=FALSE}
+ggplot(t_days, aes(x = Fecha, y = n)) +
+  geom_line(size = 0.2, colour = "#0c4c8a") +
+  scale_x_date(breaks = seq(as.Date("1958-01-01"), as.Date("2018-05-14"), 
+               by = "2 years"), date_labels = "%Y", 
+               guide = guide_axis(check.overlap = TRUE)) +
+  labs(x = NULL, y = NULL, title = "Fig. 1. Número de víctimas por día",
+        subtitle ="(1958-2018)", caption = "Fuente: elaborado con datos del CNMH") +
+  ylim(0, 800) +
+  theme_clean() +
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_text(angle = 90))
+```
+
+Una dinámica de tiempos violentos o, mejor dicho, arrebatados, de los cuales se hará una relación detallada que encamina hacia su comprensión. Para calificar esos tiempos vividos se escogió el verbo [arrebatar](https://dle.rae.es/arrebatar?m=form) por su alusión tanto a prácticas de violencia y fuerza (en su forma transitiva) como al enfurecimiento, la ira o la locura (en su modo pronominal). En otras palabras, se adjetivan como tiempos arrebatados porque muchas existencias fueron truncadas física, mental, socialmente, por seres y organizaciones enfurecidas, airadas, violentas, agentes de acciones que produjeron daño y dolor. 
+
+A ese tenor se propone también una interpretación multitemporal que vincule años, décadas y periodos presidenciales, como contrapuntos *grafoanalíticos* que brinden un mayor rigor al relato histórico en desarrollo.
+
+Bajo tales premisas inicia nuestro camino en el que se descubrirán puntos significativos siguiendo la intensidad de las acciones violentas. En ese camino la cuantificación guiará la cualificación, la cual vuelve sobre la primera, en un ciclo considerado de gran valor heurístico en relación con los datos que fundamentan este proyecto historiográfico.
+
+El periodo que nos ocupa define sus raíces especialmente en 1962, cuando los caminos del civilismo son menospreciados en favor de acciones bélicas que alimentarán las siguientes seis décadas de la historia colombiana. A comienzos de esa década se operó una transformación en la sociedad colombiana que condujo a una guerra de menor intensidad desde 1968.
+
+```{r all_v_y, echo = FALSE}
+all_v %>%
+  filter(ANNOH >= 1958L & ANNOH <= 2018L) %>%
+  group_by(ANNOH) %>%
+  tally() %>%
+  ggplot(., aes(x = ANNOH, y = n)) +
+  geom_bar(stat = "identity", fill = "#00a8e6", width=0.3) +
+  geom_text(aes(label = ANNOH), angle = 90, vjust = 0.5, hjust = -0.1, 
+            position = position_dodge(width = 1), check_overlap = TRUE) +
+  ylim(0, 41000) +
+  labs(x = NULL, y = NULL, title = "Fig. 1.1. Número de víctimas por año",
+        subtitle ="(1958-2018)", caption = "Fuente: elaborado con datos del CNMH") +
+  theme_clean() +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+
+
+```{r all_v_d, echo = FALSE}
+all_v %>%
+  filter(ANNOH >= 1960L) %>%
+  count(decade = 10 * (ANNOH %/% 10)) %>%
+  ggplot() +
+  aes(x = decade, y = n) +
+  geom_bar(stat = "identity", fill = "#00a8e6") +
+  geom_text(aes(label = decade), vjust = -0.2, hjust = 0.5, 
+            position = position_dodge(width = 1), check_overlap = TRUE) +
+  labs(x = NULL, y = NULL, title = "Fig. 1.2. Número de víctimas por década",
+        subtitle ="(1960-2018)", caption = "Fuente: elaborado con datos del CNMH") +
+  theme_clean() +
+  theme(axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+```
+
+
+
+```{r all_v_g, echo=FALSE}
+all_v %>%
+  filter(ANNOH >= 1958L & MESH >= 1L & DIAH >= 1L) %>%
+  unite(Fecha, ANNOH:MESH, sep = "-", remove = FALSE) %>%
+  unite(Fecha, Fecha:DIAH, sep = "-", remove = FALSE) %>%
+  mutate(Fecha = as.Date(Fecha, "%Y-%m-%d")) %>%
+  filter(Fecha >= "1958-08-07") %>%
+  ggplot(., aes(Fecha)) +
+  stat_bin(breaks = seq(as.Date("1958-08-07"), as.Date("2018-08-07"), 
+                        by = "4 years"), fill = "#00a8e6", color = "black") +
+  scale_x_date(breaks = seq(as.Date("1958-08-07"), as.Date("2018-08-07"), 
+                            by = "4 years"), date_labels = "%b %y") +
+  ylim(0, 115000) +
+  labs(x = NULL, y = NULL, title = "Fig. 1.3. Número de víctimas por periodo presidencial", subtitle ="(1958-2018)", caption = "Fuente: elaborado con datos del CNMH") +
+  theme_clean() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, vjust = 1))
+```
+
+Las víctimas de acciones bélicas (AB), asesinatos selectivos (AS), ataques a poblados (AP). atentados terroristas (AT), daño a bienes civiles (DB), desaparición forzada (DF), masacres (MA), reclutamiento y utilización de menores (RU), secuestro (SE), violencia sexual (VS) y eventos por minas antipersonal (MI) cuentan 411.934 observaciones entre 1958 y 2018. Una aproximación gráfica a la evolución del número de víctimas se aprecia en las siguientes figuras, a través de su presentación por año, década y periodo presidencial. De este modo, se acogen ángulos temporales diversos que enriquecen el análisis de la afectación a personas durante seis décadas.
+
+Por su parte, los casos de acciones bélicas (AB), asesinatos selectivos (AS), ataques a poblados (AP). atentados terroristas (AT), daño a bienes civiles (DB), desaparición forzada (DF), masacres (MA), reclutamiento y utilización de menores (RU), secuestro (SE), violencia sexual (VS) y eventos por minas antipersonal (MI) suman 352.786 registros entre 1958 y 2018. 
+
+Todo lo anterior condujo a la periodización que se propone a seguir:
+
+El pacto frentenacionalista (1958-1974) 
+
+Años de calma chicha (1974-1980)
+
+Trece mil días de guerra (1981-2015)
+
+Una paz por construirse (2016-)

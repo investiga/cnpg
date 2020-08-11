@@ -1,0 +1,26 @@
+---
+title: "Una paz por (de)construirse (2016-)"
+author: "Grupo de Investigación *Suma Yuyai* - Fundación Ridcharí Indígena"
+date: "2020"
+output:
+  html_document:
+    toc: yes
+    toc_float: yes
+    toc_depth: 3
+    theme: cerulean
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r script_all, include=FALSE}
+source("scripts/all_df.R", local = knitr::knit_global())
+```
+
+## Un acuerdo anhelado
+
+Asdfadf adsf asdf as.d,fn asdf asd f asdfn asdf asdf asdfa sdfn ,amsdnf nas,dfn asdfna sdnf ,amsdnf, asndfa adf asdfmadsnf,adsnfad adfassfnasd asdf asdsf adf asdf asdf df sdsa adfadf adsf adsf asdf asdf adsf adfjlk jlkjl ljlkjdklf aldkfj asdfjl akjdfafd.

@@ -1,0 +1,67 @@
+---
+title: "Colombia, una nación entre la paz y la guerra (1958-2018)"
+author: "Grupo de Investigación *Suma Yuyai* - Fundación Ridcharí Indígena"
+date: "2020"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: "cerulean"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Presentación
+
+A 30 de junio de 2020 se contabilizaban nueve millones 31 mil 48 víctimas del conflicto armado según la [Unidad para la Atención y Reparación Integral a las Víctimas](https://www.unidadvictimas.gov.co) (UARIV). Los hechos victimizantes con mayor frecuencia registrada son los de desplazamiento forzado (ocho millones 47 mil 756), homicidios (un millón 44 mil 399) y amenazas (502 mil cinco). No obstante, estas grandes cifras están ligadas a historias concretas que merecen atención, en aras de interpretar mejor las dinámicas de la guerra vivida en Colombia durante las últimas décadas.
+
+Debe anotarse que los datos concernientes al Registro Único de Víctimas (RUV), de donde resultan dichas cifras, representan solo las sumas totales de hechos acaecidos a partir de enero de 1985. Datos que aún no están disponibles para su descarga y análisis independiente. Con todo, ofrecen una primera evidencia del enorme impacto que el conflicto armado colombiano ha generado desde mucho tiempo atrás. Una afectación que reclama todavía múltiples esfuerzos para su esclarecimiento, especialmente de aquellos que vivieron y continúan viviendo las secuelas de la agresión y la violencia.
+
+Pero no todo está perdido para un análisis de datos sobre un problema que ha afectado y afecta por lo menos a 20 por ciento de la población colombiana. Víctimas que se vieron envueltas en acciones bélicas, asesinatos selectivos, ataques a poblados. atentados terroristas, daños a bienes civiles, desapariciones forzadas, masacres, utilización de menores, secuestros, violencia sexual y minas antipersonas. Categorías propuestas por el el Centro Nacional de Memoria Histórica (CNMH) durante el proceso de recolección de información sobre el conflicto armado colombiano.
+
+Ahora bien, dado que son aproximadamente 764 mil registros, la tarea analítica requiere de una amplia colaboración para su feliz término. También representa una oportunidad de aproximar la ciencia y el periodismo a una ciudadanía cada vez más escéptica sobre las narrativas oficiales y de grandes medios de información; de activar el potencial participativo que las tecnologías actuales permiten para ponerlo al servicio de la democracia, el periodismo y la historia.
+
+En efecto, este es un proyecto abierto y colaborativo que busca una comprensión renovada del conflicto armado colombiano. Una historia interactiva y participativa de seis décadas de historia en Colombia (1958-2018), apalancada en formas contemporáneas del periodismo que exigen un trabajo especial en el manejo y procesamiento de grandes cantidades de datos, donde se esconden múltiples historias. La idea básica es pescar esos relatos en tal océano de información y presentarlos gráficamente al público en diversas plataformas, con la colaboración de una comunidad interesada en su desarrollo.
+
+Se dice abierto pues sus datos y código fuente están disponibles para consulta en línea y pueden ser usados bajo la Licencia Pública General ([GPL](LICENSE), por su sigla en inglés). Con tal fin se creó un repositorio con los archivos del proyecto en GitHub, al que se puede acceder públicamente por medio del siguiente enlace: <https://github.com/investiga/hgca>. Este hecho habilita sustancialmente la posibilidad de participar en una labor conjunta, sincrónica y asincrónicamente, sobre la temática propuesta. Por lo demás, permite que los avances realizados vayan acumulándose y puedan ser continuados por futuros investigadores, periodistas o ciudadanos en general, interesados en el proyecto.
+
+## Sobre los datos base
+
+### Registros sobre Colombia
+
+Como se señaló anteriormente, la base de datos más completa y disponible hasta el momento sobre la materia tratada es la publicada a finales de 2018 por el CNMH. Esta entidad fue creada mediante la [Ley 1448 de 2011](https://www.unidadvictimas.gov.co/sites/default/files/documentosbiblioteca/ley-1448-de-2011.pdf), en la que se adoptaron medidas de "atención, asistencia y reparación integral a las víctimas del conflicto armado interno". Específicamente, el [Observatorio de Memoria y Conflicto](http://centrodememoriahistorica.gov.co/observatorio/), adscrito a dicha institución, se encarga de disponer estos y otros datos en su página electrónica para consulta y descarga. Los registros abarcan fechas entre enero de 1958 y mayo de 2018. Su recolección responde al mandato estipulado en esa ley sobre el fortalecimiento de la memoria colectiva acerca de los fenómenos de violencia en la historia reciente del país. Del mismo modo, se encuentran en línea los documentos referentes a la metodología de análisis de las variables incluidas en los datos.
+
+Para una consulta detallada sobre la metodología de recopilación se aconseja revisar el el tomo de [diccionarios de las bases de datos del Observatorio de Memoria y Conflicto](http://centrodememoriahistorica.gov.co/observatorio/wp-content/uploads/2016/09/Diccionarios-Bases-de-Datos-Observatorio-de-Memoria-y-Conflicto-1.pdf) y el [marco conceptual](http://centrodememoriahistorica.gov.co/observatorio/wp-content/uploads/2016/09/Marco-Conceptual-Observatorio-de-Memoria-y-Conflicto-1.pdf) del observatorio, pensado allí como una plataforma que integra fuentes sociales e institucionales que contribuyen al esclarecimiento histórico y la memoria sobre el conflicto armado colombiano.
+
+Antes de empezar la labor analítica se debieron organizar los datos en bruto para su procesamiento en [*R*](https://www.r-project.org/) y [*RStudio*](https://rstudio.com/), aplicativos que se pueden descargar e instalar libremente en cualquier computador con sistemas Linux, Mac o Windows. Los datos producidos por el CNMH se importan fácilmente a *R* a través de las instrucciones contenidas en el *script* [all_df.R](https://github.com/investiga/hgca/blob/master/scripts/all_df.R). Se accede así a todas las tablas de datos elaboradas por el CNMH y a otras dos tablas que  resultan de la unión de las de casos (all_c) y víctimas (all_v).
+
+Específicamente, la colección se compone de 22 hojas de cálculo de casos y víctimas de acciones bélicas (AB), asesinatos selectivos (AS), ataques a poblados (AP). atentados terroristas (AT), daños a bienes civiles (DB), desapariciones forzadas (DF), masacres (MA), reclutamiento y utilización de menores (RU), secuestros (SE), violencia sexual (VS) y eventos por minas antipersonas (MI). En total se registran 764 mil 720 observaciones, de las cuales 352 mil 786 son de casos y 411 mil 934 de víctimas. 
+
+En el total de registros de víctimas se presentan 798 duplicados, 15 triplicados y uno cuadruplicado (que suman 831 repeticiones). Estas repeticiones se deben, en varios casos, a que algunas de las víctimas lo fueron en más de una ocasión. La revisión de estas repeticiones queda en abierto para indagar en detalle qué paso con cada una de ellas. 
+
+Por el momento, al revisar el único registro cuádruple (Id 482938) de la colección, se encontró el caso de un civil de 18 a 28 años, en San Pablo, Bolívar, afectado el 22 de junio de 2001 y, nuevamente, el 9 de septiembre de 2005 en Coveñas, Sucre.  En el primer hecho, con presunta responsabilidad de las Autodefensas Unidas de Colombia (AUC), hubo tortura e intimidación, mientras que el segundo anota que hubo pago por liberación, sin definir un grupo responsable. Los otros dos registros corresponden a una repetición  del primer hecho ocurrido en San Pablo o a una situación extraordinaria de este caso en particular que no se evidencia por los datos mismos. 
+
+En consecuencia, se decidió incluir todos los registros de casos y víctimas sin restar, por el momento, tales repeticiones del conteo global mientras no se sepa a ciencia cierta el porqué aparecen así en la base de datos. 
+
+Todo lo anterior refuerza la necesidad del trabajo colaborativo para avanzar en la tarea propuesta de construcción de una historia renovada del conflicto armado colombiano.
+
+### Datos sobre conflictos armados en el mundo
+
+Como complemento a los datos del CNMH se utilizarán los registros del [*Uppsala Conflict Data Program (UCDP)*](https://ucdp.uu.se/). Este programa representa el principal proveedor de datos sobre violencia organizada en el mundo, con una experiencia de al menos 40 años en recolección de cifras sobre guerras civiles. Un proyecto que es referencia mundial para el análisis y estudio de los conflictos armados.
+
+El programa funciona en el [Departamento de Investigación en Paz y Conflicto](https://www.pcr.uu.se/?languageId=1) de la Universidad de Uppsala, en Suecia. Un centro dedicado a la formación de investigadores y a la generación de conocimiento sobre una temática que histórica y actualmente implica a las sociedades humanas.
+
+## Sobre el grupo de investigación *Suma Yuyai*
+
+El grupo de investigación [*Suma Yuyai*](https://scienti.minciencias.gov.co/gruplac/jsp/visualiza/visualizagr.jsp?nro=00000000021049) se crea en 2013 como un proyecto de la [Fundación Ridcharí Indígena](https://fridchari.blogspot.com/). Esta organización busca mejorar la calidad de vida y la participación ciudadana de las poblaciones más vulnerables socialmente, empresarios y comunidades a través de la implementación de planes, programas y proyectos de diversa índole, que posibiliten el bienestar comunitario y el desarrollo sostenible en los ámbitos de acción, organización y producción humana. Para avanzar en este propósito el proyecto aquí propuesto incentiva la participación ciudadana de las víctimas del conflicto armado colombiano como base para la construcción de un país reconciliado y en paz.
+
+*Suma Yuyai* es un grupo registrado ante el Ministerio de Ciencia, Tecnología e Innovación en espera de categorización y esta propuesta se adscribe a la línea de investigación [*Historiografías del Abya Yala*](https://scienti.minciencias.gov.co/gruplac/jsp/visualiza/visualizagr.jsp?nro=00000000021049), la cual hace parte de su plan estratégico como colectivo de pesquisa científica. Además, siguiendo el espíritu abierto y colaborativo de la iniciativa historiográfica propuesta, animamos a quienes quieran participar activamente para que se integren a él.
+
+## A los futuros colaboradores
+
+Como se señaló al comienzo, la tarea de construir una comprensión histórica del conflicto armado reciente en Colombia es inmensa. Es también una deuda para con las millones de víctimas de atrocidades y hechos violentos ocurridos en medio de la guerra. Por ello, reiteramos la invitación a quienes quieran unirse al equipo que hoy asume dicha tarea para que nos acompañen en esta expedición. Además del repositorio creado en [GitHub](https://github.com/investiga/hgca) y las páginas electrónicas del proyecto, los interesados pueden comunicarse también a los correos ridchari@gmail.com o nukajames@gmail.com.
+
+La periodización propuesta y sus correspondientes secciones se pueden consultar en la [introducción](https://investiga.github.io/cnpg/intro.html) a este proyecto, intitulado provisionalmente *Colombia, una nación entre la paz y la guerra (1958-2018)*.
